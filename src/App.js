@@ -5,7 +5,7 @@ import Home from './components/Home';
 
 class App extends Component {
   componentDidMount() {
-    Axios.get(`https://api.themoviedb.org/3/movie/550?api_key=${process.env.REACT_APP_API_KEY}`)
+    Axios.get(`${process.env.REACT_APP_API_URL}movie/550?api_key=${process.env.REACT_APP_API_KEY}`)
     .then(res => {
         console.log(res)
     })
