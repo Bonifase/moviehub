@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Card, CardText, CardTitle, CardActions, CardMenu, IconButton } from 'react-mdl';
 
-export default function movie(props) {
+export default function Movie(props) {
     let imagePath = process.env.REACT_APP_IMAGE_URL + props.d.backdrop_path;
   return (
         <Card shadow={0} style={{width: '512px', margin: 'auto'}}>
