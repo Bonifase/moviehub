@@ -2,16 +2,16 @@ import React from 'react'
 import { Button, Card, CardText, CardTitle, CardActions, CardMenu, IconButton } from 'react-mdl';
 
 export default function movie(props) {
+    let imagePath = process.env.REACT_APP_IMAGE_URL + props.d.backdrop_path;
   return (
         <Card shadow={0} style={{width: '512px', margin: 'auto'}}>
-            <CardTitle style={{color: '#fff', height: '176px', background: 'url(`${process.env.REACT_APP_API_URL}movie/upcoming{props.backdrop_path}?api_key=${process.env.REACT_APP_API_KEY}`) center / cover'}}>{props.title}</CardTitle>
+            <CardTitle style={{color: '#fff', height: '176px', background: `url(${imagePath}) center / cover`}}>{props.d.title}</CardTitle>
             
                 <CardText>
-                <div>Number of votes: {props.d.vote_count}</div>
-                <div>Average Votes: {props.vote_average}</div>
-                <div>Release Date: {props.release_date}</div>
-                <div>Overview: {props.overview}</div>
-                <div>backdrop_path: `${process.env.REACT_APP_API_URL}movie/upcoming{props.backdrop_path}?api_key=${process.env.REACT_APP_API_KEY}`</div>
+                <div><strong>Number of votes:</strong> {props.d.vote_count}</div>
+                <div><strong>Average Votes:</strong> {props.d.vote_average}</div>
+                <div><strong>Release Date:</strong> {props.d.release_date}</div>
+                <div><strong>Overview:</strong> {props.d.overview}</div>
                 </CardText>
                 <CardActions border>
                     <Button colored>Get Started</Button>

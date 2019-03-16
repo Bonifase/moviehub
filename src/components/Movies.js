@@ -14,6 +14,7 @@ class Movies extends Component {
         }
         this.baseURL = process.env.REACT_APP_API_URL
         this.apiKey = process.env.REACT_APP_API_KEY
+        this.imagePath = process.env.REACT_APP_IMAGE_URL
     }
     componentDidMount() {
         Axios.get(`${this.baseURL}movie/upcoming?api_key=${this.apiKey}`)
@@ -29,8 +30,8 @@ class Movies extends Component {
         console.log(">>>>>>>", this.state.searchTerm)
         fetch(`${this.baseURL}search/movie?api_key=${this.apiKey}&query=${this.state.searchTerm}`).then(data => data.json())
         .then(data => {
-            console.log(">>>>>>search", data.results)
-            this.setState({movies: data.results})
+            this.setState({data: data.results})
+            
         })
     }
     onChange = e => {
