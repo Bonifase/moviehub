@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
-import { Button, Card, CardText, CardTitle, CardActions, CardMenu, IconButton } from 'react-mdl';
 import SearchArea from './SearchArea';
+import Movie from './Movie';
 
 class Movies extends Component {
     constructor(props) {
@@ -9,11 +9,14 @@ class Movies extends Component {
     
         this.state = {
             data: [],
-            response: 'got reponse'
+            response: 'got reponse',
+            searchTerm: ""
         }
+        this.baseURL = process.env.REACT_APP_API_URL
+        this.apiKey = process.env.REACT_APP_API_KEY
     }
     componentDidMount() {
-        Axios.get(`${process.env.REACT_APP_API_URL}movie/upcoming?api_key=${process.env.REACT_APP_API_KEY}`)
+        Axios.get(`${this.baseURL}movie/upcoming?api_key=${this.apiKey}`)
         .then(res => {
             let movies = res.data.results;
             this.setState({ data: movies })
@@ -21,30 +24,32 @@ class Movies extends Component {
         })
     }
 
+    handleSubmit = (e) => {
+        e.preventDefault()
+        console.log(">>>>>>>", this.state.searchTerm)
+        fetch(`${this.baseURL}search/movie?api_key=${this.apiKey}&query=${this.state.searchTerm}`).then(data => data.json())
+        .then(data => {
+            console.log(">>>>>>search", data.results)
+            this.setState({movies: data.results})
+        })
+    }
+    onChange = e => {
+        this.setState({ searchTerm: e.target.value })
+    }
+
     render() {
         let data = this.state.data
-        console.log(data)
+        console.log("after search", data)
         const movieItems = data.map((d) => <li key={d.id}>
-        <Card shadow={0} style={{width: '512px', margin: 'auto'}}>
-                    <CardTitle style={{color: '#fff', height: '176px', background: 'url(`${process.env.REACT_APP_API_URL}movie/upcoming{d.backdrop_path}?api_key=${process.env.REACT_APP_API_KEY}`) center / cover'}}>{d.title}</CardTitle>
-                    
-                            <CardText>
-                            <div>Number of votes: {d.vote_count}</div>
-                            <div>Average Votes: {d.vote_average}</div>
-                            <div>Release Date: {d.release_date}</div>
-                            <div>Overview: {d.overview}</div>
-                            <div>backdrop_path: `${process.env.REACT_APP_API_URL}movie/upcoming{d.backdrop_path}?api_key=${process.env.REACT_APP_API_KEY}`</div>
-                            </CardText>
-                            <CardActions border>
-                                <Button colored>Get Started</Button>
-                            </CardActions>
-                            <CardMenu style={{color: '#fff'}}>
-                                <IconButton name="share" />
-                            </CardMenu>
-                        </Card></li>);
+        <Movie d={d}/>
+        </li>);
         return (
             <div>
-                <SearchArea />
+                <SearchArea 
+                handleSubmit={this.handleSubmit}
+                onChange={this.onChange}
+                searchValue={this.state.searchTerm}
+                />
                 { movieItems }
             </div>
         );
