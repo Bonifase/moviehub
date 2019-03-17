@@ -14,7 +14,7 @@ function Movie(props) {
                 <div><strong>Overview:</strong> {props.d.overview}</div>
                 </CardText>
                 <CardActions border>
-                    <Button colored>Get Started</Button>
+                    <Button colored>Watch Now</Button>
                 </CardActions>
                 <CardMenu style={{color: '#fff'}}>
                     <IconButton name="share" />
