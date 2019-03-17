@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
+import Movie from './movie';
+
 import SearchArea from './SearchArea';
-import Movie from './Movie';
+
 
 class Movies extends Component {
     constructor(props) {

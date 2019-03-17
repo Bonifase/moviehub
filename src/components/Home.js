@@ -11,8 +11,8 @@ class App extends Component {
     return (
       <div >
             <div className="demo-big-content">
-                <Layout>
-                <Header title="Movie Hub" scroll>
+                <Layout >
+                <Header title="Movie Hub" >
                     <Navigation>
                         <Link to='/'>Home</Link>
                         <Link to='/Popular'>Popular Movies</Link>
